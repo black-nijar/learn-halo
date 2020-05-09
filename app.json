@@ -1,0 +1,17 @@
+{
+  "name": "myHelo",
+  "displayName": "myHelo",
+  "expo": {
+    "name": "myHelo",
+    "slug": "myHelo",
+    "version": "1.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
