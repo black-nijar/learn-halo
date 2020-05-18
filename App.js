@@ -1,20 +1,30 @@
 import * as React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import Auth from './src/components/Auth';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import { rootReducer } from './src/reducers/rootReducer';
+import { composeWithDevTools } from 'redux-devtools-extension'
+import thunk from 'redux-thunk';
+
+const store = createStore(rootReducer,composeWithDevTools(applyMiddleware(thunk)));
 
 const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>App</Text>
-    </View>
+    <Provider store={store}>
+      <View style={styles.container}>
+        <Auth />
+      </View>
+    </Provider>
   );
 }
+
 export default App;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    margin: 10,
     backgroundColor: '#F5FCFF',
   }
 });
