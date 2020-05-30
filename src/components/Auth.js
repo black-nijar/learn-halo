@@ -1,31 +1,30 @@
 import React, { useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import * as Google from 'expo-google-app-auth';
-import { NavigationContainer } from '@react-navigation/native';
 import SignIn from './SignIn';
-import Navigation from './Navigation'
+import { userProfile } from '../actions/auth';
+import { connect } from 'react-redux';
 
-const Auth = () => {
+const Auth = ({ userProfile }) => {
   const [formData, setformData] = useState({
-    isSignedIn: false,
     name: '',
     email: '',
     photoUrl: ''
   })
-  const { isSignedIn } = formData;
  
   const signInWithGoogleAsync = async () => {
     try {
       const result = await Google.logInAsync({
         androidClientId: ANDROID_ID,
-        iosClientId: IOS_ID,
+       // iosClientId: IOS_ID,
         scopes: ['profile', 'email'],
       });
 
       if (result.type === 'success') {
         const { user: { name, email, photoUrl, familyName } } = result;
-
-        setformData({ ...formData, name, email, photoUrl, isSignedIn: true })
+       
+        setformData({ ...formData, name, email, photoUrl });
+        userProfile(name, email, photoUrl);
         return result.accessToken;
       } else {
         return { cancelled: true };
@@ -46,18 +45,9 @@ const Auth = () => {
   }
   return (
     <View>
-      {
-        isSignedIn ?
-          (<NavigationContainer>
-            <Navigation />
-          </NavigationContainer>)
-          :
-          <SignIn onSignIn={signInWithGoogleAsync} />
-      }
+      <SignIn onSignIn={signInWithGoogleAsync}/>
     </View>
   )
 }
 
-export default Auth
-
-const styles = StyleSheet.create({})
+export default connect(null, { userProfile })(Auth)

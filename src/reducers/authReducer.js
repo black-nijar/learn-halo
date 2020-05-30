@@ -1,7 +1,6 @@
 import { USER_PROFILE } from "../actions/actionType";
 
 const initState = {
-  userId: '',
   userName: '',
   userImage: '',
   userEmail: '',
@@ -14,10 +13,10 @@ export const authReducer = (state = initState, action) => {
     case USER_PROFILE:
       return {
         ...state,
-        userId: payload.id,
         userEmail: payload.email,
         userName: payload.name,
-        userImage: payload.photo
+        userImage: payload.photoUrl,
+        isAuthenticated: true
       }
     default:
       return state; 

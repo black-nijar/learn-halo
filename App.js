@@ -1,25 +1,27 @@
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import TopTab from './src/components/Navigation';
+import { connect } from 'react-redux'
 import Auth from './src/components/Auth';
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import { rootReducer } from './src/reducers/rootReducer';
-import { composeWithDevTools } from 'redux-devtools-extension'
-import thunk from 'redux-thunk';
 
-const store = createStore(rootReducer,composeWithDevTools(applyMiddleware(thunk)));
-
-const App = () => {
+const App = ({ auth: { isAuthenticated } }) => {
   return (
-    <Provider store={store}>
-      <View style={styles.container}>
-        <Auth />
-      </View>
-    </Provider>
+    <View style={styles.container}>
+      {
+        isAuthenticated ? <NavigationContainer>
+          <TopTab />
+        </NavigationContainer> : <Auth />
+      }
+    </View>
   );
 }
 
-export default App;
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(mapStateToProps)(App);
 
 const styles = StyleSheet.create({
   container: {

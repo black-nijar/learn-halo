@@ -1,8 +1,8 @@
 import { USER_PROFILE } from "./actionType"
 
-export const userProfile = (id,name,email,photo) => dispatch => {
-  dispatch({
+export const userProfile = (name, email, photoUrl) => {
+  return {
     type: USER_PROFILE,
-    payload: { id, name, email, photo }
-  })
+    payload: { name, email, photoUrl }
+  }
 }
