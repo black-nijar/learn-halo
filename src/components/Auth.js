@@ -11,7 +11,8 @@ const Auth = ({ userProfile }) => {
     email: '',
     photoUrl: ''
   })
- 
+  
+  
   const signInWithGoogleAsync = async () => {
     try {
       const result = await Google.logInAsync({

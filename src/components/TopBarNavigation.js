@@ -1,10 +1,10 @@
 import React from 'react';
-import { Text, View } from 'react-native';
 
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Chats from './Chats';
 import SearchUser from './SearchUser';
-import Profile from './Profile';
+
+
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -14,25 +14,20 @@ function TopTab () {
     <Tab.Navigator
       initialRouteName="Feed"
       tabBarOptions={{
-        activeTintColor: '#e91e63',
+        activeTintColor: '#fff',
         labelStyle: { fontSize: 12 },
-        style: { backgroundColor: 'powderblue' },
+        style: { backgroundColor: '#128C7E' },
       }}
     >
       <Tab.Screen
         name="Feed"
         component={Chats}
-        options={{ tabBarLabel: 'Home' }}
+        options={{ tabBarLabel: 'Chats' }}
       />
       <Tab.Screen
-        name="Notifications"
+        name="Search"
         component={SearchUser}
-        options={{ tabBarLabel: 'Updates' }}
-      />
-      <Tab.Screen
-        name="Profile"
-        component={Profile}
-        options={{ tabBarLabel: 'Profile' }}
+        options={{ tabBarLabel: 'Search' }}
       />
     </Tab.Navigator>
   );
