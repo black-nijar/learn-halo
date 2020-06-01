@@ -1,15 +1,17 @@
 import 'react-native-gesture-handler'
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 import { connect } from 'react-redux'
-import Auth from './src/components/Auth';
+
+import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack'
-import TopTab from './src/components/TopBarNavigation';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { Ionicons } from 'react-native-vector-icons';
+
+import Auth from './src/components/Auth';
+import TopTab from './src/components/TopBarNavigation';
 import Profile from './src/components/Profile';
 import Settings from './src/components/Settings';
-import { Ionicons } from 'react-native-vector-icons';
 import DrawerContent from './src/components/DrawerContent';
 
 
@@ -34,7 +36,8 @@ const HomeStack = ({ navigation }) => {
       }} />
     </Stack.Navigator>
   )
-}
+};
+
 const ProfileStack = ({ navigation }) => {
   return (
     <Stack.Navigator screenOptions={{
@@ -53,7 +56,8 @@ const ProfileStack = ({ navigation }) => {
       }} />
     </Stack.Navigator>
   )
-}
+};
+
 const SettingsStack = ({ navigation }) => {
   return (
     <Stack.Navigator screenOptions={{
@@ -72,8 +76,7 @@ const SettingsStack = ({ navigation }) => {
       }} />
     </Stack.Navigator>
   )
-}
-
+};
 
 const DrawerNavigation = () => {
   return (

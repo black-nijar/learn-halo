@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View, Image, Button } from 'react-native'
+import { StyleSheet, Text, View, Image } from 'react-native'
 import { connect } from 'react-redux';
 
 const Profile = ({ auth: { userName, userEmail, userImage } }) => {

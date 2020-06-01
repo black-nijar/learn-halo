@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { View } from 'react-native'
 import * as Google from 'expo-google-app-auth';
+import { connect } from 'react-redux';
+
 import SignIn from './SignIn';
 import { userProfile } from '../actions/auth';
-import { connect } from 'react-redux';
 
 const Auth = ({ userProfile }) => {
   const [formData, setformData] = useState({

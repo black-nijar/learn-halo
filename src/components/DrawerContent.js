@@ -1,9 +1,11 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+
+import { connect } from 'react-redux';
+
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Avatar, Title, Caption, Drawer } from 'react-native-paper';
-import { connect } from 'react-redux';
 
 const DrawerContent = (props) => {
   const { auth: { userName, userImage, userEmail } } = props;
