@@ -27,21 +27,21 @@ const DrawerContent = (props) => {
                   <Icon name='home-outline' color={color} size={size} />
                 )}
                 label='Home'
-                onPress={() => { props.navigation.navigate('Home')}}
+                onPress={() => { props.navigation.navigate('Home') }}
               />
               <DrawerItem
                 icon={({ color, size }) => (
                   <Icon name='account-outline' color={color} size={size} />
                 )}
                 label='Profile'
-                onPress={() => { props.navigation.navigate('Profile')}}
+                onPress={() => { props.navigation.navigate('Profile') }}
               />
               <DrawerItem
                 icon={({ color, size }) => (
                   <Icon name='settings-outline' color={color} size={size} />
                 )}
                 label='Settings'
-                onPress={() => { props.navigation.navigate('Settings')}}
+                onPress={() => { props.navigation.navigate('Settings') }}
               />
             </Drawer.Section>
           </View>
@@ -50,7 +50,6 @@ const DrawerContent = (props) => {
     </View>
   )
 }
-
 
 const mapStateToProps = state => ({
   auth: state.auth
