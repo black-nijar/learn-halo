@@ -10,6 +10,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import Profile from './src/components/Profile';
 import Settings from './src/components/Settings';
 import { Ionicons } from 'react-native-vector-icons';
+import DrawerContent from './src/components/DrawerContent';
 
 
 const Stack = createStackNavigator();
@@ -76,7 +77,7 @@ const SettingsStack = ({ navigation }) => {
 
 const DrawerNavigation = () => {
   return (
-    <Drawer.Navigator >
+    <Drawer.Navigator drawerContent={props => <DrawerContent {...props}/>}>
       <Drawer.Screen name='Home' component={HomeStack} />
       <Drawer.Screen name='Profile' component={ProfileStack} />
       <Drawer.Screen name='Settings' component={SettingsStack} />
