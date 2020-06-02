@@ -7,7 +7,7 @@ const SearchUser = () => {
   return (
     <View>
       <View style={styles.searchOutline}>
-        <TextInput style={styles.textInput} autoFocus={true} placeholder='Search user'/>
+        <TextInput style={styles.textInput} placeholder='Search user'/>
       </View>
     </View>
   )

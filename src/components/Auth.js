@@ -6,14 +6,24 @@ import { connect } from 'react-redux';
 import SignIn from './SignIn';
 import { userProfile } from '../actions/auth';
 
+import dataBase from '../config/firebaseConfig';
+import { ActivityIndicator } from 'react-native-paper';
+
 const Auth = ({ userProfile }) => {
   const [formData, setformData] = useState({
+    id: '',
     name: '',
     email: '',
     photoUrl: ''
-  })
+  });
+  
+  //OAuth ID
   
   
+  //Child path for DB
+  const userData = dataBase.child('users');
+  
+  //Google signin
   const signInWithGoogleAsync = async () => {
     try {
       const result = await Google.logInAsync({
@@ -23,9 +33,13 @@ const Auth = ({ userProfile }) => {
       });
 
       if (result.type === 'success') {
-        const { user: { name, email, photoUrl, familyName } } = result;
-       
-        setformData({ ...formData, name, email, photoUrl });
+        const { user: { name, email, photoUrl, familyName, id } } = result;
+        
+        setformData({ name, email, photoUrl });
+
+        // Upload data to database
+        userData.child(id).set(result.user)
+        
         userProfile(name, email, photoUrl);
         return result.accessToken;
       } else {
@@ -36,6 +50,7 @@ const Auth = ({ userProfile }) => {
     }
   };
 
+  //Google Sign out
   const signOutWithGoogleAsync = async () => {
     try {
       await Google.logOutAsync({

@@ -8,11 +8,12 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Ionicons } from 'react-native-vector-icons';
 
+import TopTab from './src/NavigationScreen/TopBarNavigation'
+import DrawerContent from './src/NavigationScreen/DrawerContent';
+
 import Auth from './src/components/Auth';
-import TopTab from './src/components/TopBarNavigation';
 import Profile from './src/components/Profile';
 import Settings from './src/components/Settings';
-import DrawerContent from './src/components/DrawerContent';
 
 
 const Stack = createStackNavigator();
