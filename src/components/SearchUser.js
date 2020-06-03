@@ -1,19 +1,39 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React, { useEffect } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 
-import { TextInput } from 'react-native-gesture-handler'
+import { TextInput, FlatList } from 'react-native-gesture-handler';
+import { connect } from 'react-redux';
+import dataBase from '../config/firebaseConfig';
+import { usersData } from '../actions/auth';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import UserItem from './UserItem.js';
 
-const SearchUser = () => {
+const SearchUser = ({ usersData, users }) => {
+  useEffect(() => {
+    dataBase.on('value', (snap) => {
+      const data = snap.val();
+      usersData(data);
+    })
+  }, []);
+console.log('USERS DATA From SEARCH :', users)
   return (
-    <View>
+    <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.searchOutline}>
-        <TextInput style={styles.textInput} placeholder='Search user'/>
+        <TextInput style={styles.textInput} placeholder='Search user' />
+        <FlatList
+          data={users}
+          renderItem={({ item }) => <UserItem user={item}/>}
+          keyExtractor={item => item.id}
+        />
       </View>
-    </View>
+    </SafeAreaView>
   )
-}
+};
 
-export default SearchUser
+const mapStateToProps = state => ({
+  users: state.users
+})
+export default connect(mapStateToProps, { usersData })(SearchUser)
 
 const styles = StyleSheet.create({
   textInput: {

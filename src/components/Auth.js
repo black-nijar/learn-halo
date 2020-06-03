@@ -7,18 +7,10 @@ import SignIn from './SignIn';
 import { userProfile } from '../actions/auth';
 
 import dataBase from '../config/firebaseConfig';
-import { ActivityIndicator } from 'react-native-paper';
 
 const Auth = ({ userProfile }) => {
-  const [formData, setformData] = useState({
-    id: '',
-    name: '',
-    email: '',
-    photoUrl: ''
-  });
-  
   //OAuth ID
-  
+ 
   
   //Child path for DB
   const userData = dataBase.child('users');
@@ -34,8 +26,6 @@ const Auth = ({ userProfile }) => {
 
       if (result.type === 'success') {
         const { user: { name, email, photoUrl, familyName, id } } = result;
-        
-        setformData({ name, email, photoUrl });
 
         // Upload data to database
         userData.child(id).set(result.user)
