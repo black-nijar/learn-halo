@@ -3,14 +3,15 @@ import { View } from 'react-native'
 import * as Google from 'expo-google-app-auth';
 import { connect } from 'react-redux';
 
-import SignIn from './SignIn';
-import { userProfile } from '../actions/auth';
-
 import dataBase from '../config/firebaseConfig';
+
+import SignIn from './SignIn';
+
+import { userProfile } from '../actions/action';
 
 const Auth = ({ userProfile }) => {
   //OAuth ID
- 
+  
   
   //Child path for DB
   const userData = dataBase.child('users');

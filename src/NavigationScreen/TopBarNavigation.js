@@ -1,7 +1,7 @@
 import React from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
-import Chats from '../components/Chats';
+import Chats from '../components/ChatsList';
 import SearchUser from '../components/SearchUser';
 
 const Tab = createMaterialTopTabNavigator();

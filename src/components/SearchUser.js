@@ -1,39 +1,56 @@
-import React, { useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-
-import { TextInput, FlatList } from 'react-native-gesture-handler';
-import { connect } from 'react-redux';
-import dataBase from '../config/firebaseConfig';
-import { usersData } from '../actions/auth';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, View, TextInput, FlatList } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
+import dataBase from '../config/firebaseConfig';
+
+import { connect } from 'react-redux';
+import { usersData, searchUser } from '../actions/action';
 import UserItem from './UserItem.js';
 
-const SearchUser = ({ usersData, users }) => {
+const SearchUser = ({ usersData, users, searchUser, filteredUser }) => {
+  const [name, setName] = useState('');
+
   useEffect(() => {
     dataBase.on('value', (snap) => {
       const data = snap.val();
       usersData(data);
     })
   }, []);
-console.log('USERS DATA From SEARCH :', users)
+
+  const onChange = text => searchUser(text, users);
+
+  //Filter user 
+  const listUser = filteredUser.length > 0 ? filteredUser : users;
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.searchOutline}>
-        <TextInput style={styles.textInput} placeholder='Search user' />
-        <FlatList
-          data={users}
-          renderItem={({ item }) => <UserItem user={item}/>}
-          keyExtractor={item => item.id}
+        <TextInput
+          style={styles.textInput}
+          placeholder='Search user'
+          onChangeText={onChange}
+          textContentType='username'
         />
+        {
+          listUser ? (
+            <FlatList
+              data={listUser}
+              renderItem={({ item }) => <UserItem user={item} />}
+              keyExtractor={item => item.id}
+            />
+          ) : <Text>Loading Contacts...</Text>
+        }
       </View>
     </SafeAreaView>
   )
 };
 
 const mapStateToProps = state => ({
-  users: state.users
+  users: state.users,
+  filteredUser: state.filteredUser
 })
-export default connect(mapStateToProps, { usersData })(SearchUser)
+export default connect(mapStateToProps, { usersData, searchUser })(SearchUser)
 
 const styles = StyleSheet.create({
   textInput: {
