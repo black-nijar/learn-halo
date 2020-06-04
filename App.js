@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler'
 import * as React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Image } from 'react-native';
 import { connect } from 'react-redux'
 
 import { NavigationContainer } from '@react-navigation/native';
@@ -14,7 +14,7 @@ import DrawerContent from './src/NavigationScreen/DrawerContent';
 import Auth from './src/components/Auth';
 import Profile from './src/components/Profile';
 import Settings from './src/components/Settings';
-
+import Chat from './src/components/Chat';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -31,10 +31,19 @@ const HomeStack = ({ navigation }) => {
         headerRight: () => (
           <Ionicons.Button name='ios-menu'
             size={25}
-            backgroundColor= '#128C7E'
-            onPress={() => navigation.openDrawer()}></Ionicons.Button>
+            backgroundColor='#128C7E'
+            onPress={() => navigation.openDrawer()}>
+          </Ionicons.Button>
         )
       }} />
+      <Stack.Screen
+        name='Chat'
+        options={({ route }) => ({
+          title: route.params.givenName,
+          headerTitleAlign: 'center',
+        })}
+
+        component={Chat} />
     </Stack.Navigator>
   )
 };
@@ -51,7 +60,7 @@ const ProfileStack = ({ navigation }) => {
         headerRight: () => (
           <Ionicons.Button name='ios-menu'
             size={25}
-            backgroundColor= '#128C7E'
+            backgroundColor='#128C7E'
             onPress={() => navigation.openDrawer()}></Ionicons.Button>
         )
       }} />
@@ -71,7 +80,7 @@ const SettingsStack = ({ navigation }) => {
         headerRight: () => (
           <Ionicons.Button name='ios-menu'
             size={25}
-            backgroundColor= '#128C7E'
+            backgroundColor='#128C7E'
             onPress={() => navigation.openDrawer()}></Ionicons.Button>
         )
       }} />
@@ -81,7 +90,7 @@ const SettingsStack = ({ navigation }) => {
 
 const DrawerNavigation = () => {
   return (
-    <Drawer.Navigator drawerContent={props => <DrawerContent {...props}/>}>
+    <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
       <Drawer.Screen name='Home' component={HomeStack} />
       <Drawer.Screen name='Profile' component={ProfileStack} />
       <Drawer.Screen name='Settings' component={SettingsStack} />

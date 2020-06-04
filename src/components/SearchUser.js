@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { usersData, searchUser } from '../actions/action';
 import UserItem from './UserItem.js';
 
-const SearchUser = ({ usersData, users, searchUser, filteredUser }) => {
+const SearchUser = ({ usersData, users, searchUser, filteredUser, navigation }) => {
   const [name, setName] = useState('');
 
   useEffect(() => {
@@ -36,7 +36,7 @@ const SearchUser = ({ usersData, users, searchUser, filteredUser }) => {
           listUser ? (
             <FlatList
               data={listUser}
-              renderItem={({ item }) => <UserItem user={item} />}
+              renderItem={({ item }) => <UserItem user={item} navigation={navigation}/>}
               keyExtractor={item => item.id}
             />
           ) : <Text>Loading Contacts...</Text>

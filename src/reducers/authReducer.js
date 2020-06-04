@@ -4,10 +4,11 @@ const initState = {
   userName: '',
   userImage: '',
   userEmail: '',
-  isAuthenticated: false
+  isAuthenticated: false,
+  loading: true
 }
-
 export const authReducer = (state = initState, action) => {
+
   const { type, payload } = action;
   switch (type) {
     case USER_PROFILE:
@@ -16,7 +17,8 @@ export const authReducer = (state = initState, action) => {
         userEmail: payload.email,
         userName: payload.name,
         userImage: payload.photoUrl,
-        isAuthenticated: true
+        isAuthenticated: true,
+        loading: false
       }
     default:
       return state; 
