@@ -1,18 +1,18 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, SafeAreaView, TouchableOpacity } from 'react-native'
 import { Avatar, Paragraph } from 'react-native-paper'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+
 
 const UserItem = ({ user, navigation }) => {
   return (
-    <View >
+    <SafeAreaView >
       <TouchableOpacity style={styles.userData} onPress={() => navigation.navigate('Chat',user )}>
         <Avatar.Image source={{ uri: user.photoUrl }}  size={40} />
         <View >
           <Paragraph style={styles.userName}>{user.givenName}</Paragraph>
         </View>
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   )
 }
 

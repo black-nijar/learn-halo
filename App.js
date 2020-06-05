@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler'
 import * as React from 'react';
-import { StyleSheet, View, Image } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux'
 
 import { NavigationContainer } from '@react-navigation/native';
@@ -42,7 +42,6 @@ const HomeStack = ({ navigation }) => {
           title: route.params.givenName,
           headerTitleAlign: 'center',
         })}
-
         component={Chat} />
     </Stack.Navigator>
   )
