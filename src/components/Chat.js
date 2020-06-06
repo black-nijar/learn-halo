@@ -1,17 +1,15 @@
 import React from 'react'
-import { StyleSheet, Text, View, TextInput, KeyboardAvoidingView, ScrollView, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, TextInput, KeyboardAvoidingView, ScrollView, TouchableOpacity, Platform } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from '@expo/vector-icons/Ionicons';
 
 const Chat = ({ route: { params } }) => {
   const onChange = () => { }
   return (
-    <KeyboardAvoidingView style={{ flex: 1, }} behavior={"padding"}>
+    <KeyboardAvoidingView style={{ flex: 1, }} >
       <ScrollView
         keyboardDismissMode="interactive"
-		keyboardDismissMode="interactive" 
-        keyboardDismissMode="interactive"
-        style={{ flex: 1, backgroundColor: "red" }}>
+        style={{ flex: 1, backgroundColor: "#fff" }}>
         <View>
           <Text>Nijar</Text>
         </View>
@@ -42,7 +40,8 @@ const styles = StyleSheet.create({
     borderColor: 'grey',
     borderWidth: 1,
     borderRadius: 10,
-    paddingLeft: 7
+    paddingLeft: 7,
+    marginBottom: 5
   },
   chatBox: {
     flexDirection: 'row',
@@ -56,9 +55,8 @@ const styles = StyleSheet.create({
   },
   chatBoxContainer: {
     flexDirection: 'row',
-    marginTop: 3,
     padding: 5,
-    marginTop: 270
+    //marginTop: 0
   },
   messagesList: {
     flex: 1,
