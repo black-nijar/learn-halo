@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, Text, View, Dimensions } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -34,7 +34,15 @@ const Messages = ({ item, userId }) => {
           }}
         >
           <Text style={styles.textMessage}>{item.message}</Text>
-          <Text style={styles.msgTime}>{convertTime(item.createdAt)}</Text>
+          <Text
+            style={{
+              color: item.from === userId ? "grey" : "green",
+              fontSize: 11,
+              alignSelf: "flex-end"
+            }}
+          >
+            {convertTime(item.createdAt)}
+          </Text>
         </View>
       ) : (
         <Text>checking...</Text>
@@ -53,10 +61,5 @@ const styles = StyleSheet.create({
     color: "black",
     padding: 8,
     fontSize: 14
-  },
-  msgTime: {
-    color: "grey",
-    fontSize: 11,
-    alignSelf: "flex-end"
   }
 });

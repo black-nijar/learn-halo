@@ -11,7 +11,7 @@ import { userProfile } from "../actions/action";
 
 const Auth = ({ userProfile }) => {
   //OAuth ID
- 
+
   //Child path for DB
   const userData = dataBase.child("users");
 
