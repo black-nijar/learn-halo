@@ -20,7 +20,7 @@ import Messages from "./Messages";
 
 const { height, width } = Dimensions.get("window");
 
-const Chat = ({ route: { params }, auth: { userId } }) => {
+const Chat = ({ route: { params }, auth: { userId }, navigation }) => {
   const [textMessage, setTextMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const { id } = params;
@@ -93,7 +93,7 @@ const Chat = ({ route: { params }, auth: { userId } }) => {
               style={styles.flatList}
               data={messages}
               renderItem={({ item }) => (
-                <Messages item={item} userId={userId} />
+                <Messages item={item} userId={userId} navigation={navigation} />
               )}
               keyExtractor={(item, index) => index.toString()}
             />
@@ -111,7 +111,7 @@ const Chat = ({ route: { params }, auth: { userId } }) => {
               autoFocus={true}
             />
             <TouchableOpacity style={styles.sendButtonOutline} onPress={onSend}>
-              <Icon name="md-send" style={styles.sendButton} size={23} />
+              <Icon name="md-send" style={styles.sendButton} size={20} />
             </TouchableOpacity>
           </View>
         </Fragment>
@@ -129,8 +129,8 @@ export default connect(mapStateToProps)(Chat);
 const styles = StyleSheet.create({
   textInput: {
     flex: 1,
-    height: 40,
-    fontSize: 20,
+    height: 38,
+    fontSize: 15,
     borderColor: "grey",
     borderWidth: 1,
     borderRadius: 10,

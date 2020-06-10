@@ -1,10 +1,13 @@
-import React, { useEffect } from "react";
-import { StyleSheet, Text, View, Dimensions } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import React from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  TouchableOpacity
+} from "react-native";
 
-const Messages = ({ item, userId }) => {
-  console.log("item :", item);
-
+const Messages = ({ item, userId, navigation }) => {
   const { height, width } = Dimensions.get("window");
 
   const convertTime = time => {
@@ -33,16 +36,20 @@ const Messages = ({ item, userId }) => {
             marginBottom: 10
           }}
         >
-          <Text style={styles.textMessage}>{item.message}</Text>
-          <Text
-            style={{
-              color: item.from === userId ? "grey" : "green",
-              fontSize: 11,
-              alignSelf: "flex-end"
-            }}
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Bilingual", { item, userId })}
           >
-            {convertTime(item.createdAt)}
-          </Text>
+            <Text style={styles.textMessage}>{item.message}</Text>
+            <Text
+              style={{
+                color: item.from === userId ? "grey" : "green",
+                fontSize: 11,
+                alignSelf: "flex-end"
+              }}
+            >
+              {convertTime(item.createdAt)}
+            </Text>
+          </TouchableOpacity>
         </View>
       ) : (
         <Text>checking...</Text>
