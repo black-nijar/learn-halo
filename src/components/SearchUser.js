@@ -39,7 +39,7 @@ const SearchUser = ({ usersData, users, searchUser, filteredUser, navigation }) 
               renderItem={({ item }) => <UserItem user={item} navigation={navigation}/>}
               keyExtractor={item => item.id}
             />
-          ) : <Text>Loading Contacts...</Text>
+          ) : <Text>No Contacts...</Text>
         }
       </View>
     </SafeAreaView>

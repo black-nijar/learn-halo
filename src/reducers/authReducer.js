@@ -17,6 +17,7 @@ export const authReducer = (state = initState, action) => {
         userEmail: payload.email,
         userName: payload.name,
         userImage: payload.photoUrl,
+        userId: payload.id,
         isAuthenticated: true,
         loading: false
       }

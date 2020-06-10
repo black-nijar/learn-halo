@@ -1,9 +1,9 @@
 import { USER_PROFILE, USERS, SEARCH_USER } from "./actionType"
 
-export const userProfile = (name, email, photoUrl) => {
+export const userProfile = (name, email, photoUrl, id) => {
   return {
     type: USER_PROFILE,
-    payload: { name, email, photoUrl }
+    payload: { name, email, photoUrl, id }
   }
 };
 

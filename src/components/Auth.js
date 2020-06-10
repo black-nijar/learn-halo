@@ -11,7 +11,7 @@ import { userProfile } from '../actions/action';
 
 const Auth = ({ userProfile }) => {
   //OAuth ID
-
+  
   //Child path for DB
   const userData = dataBase.child('users');
   
@@ -30,7 +30,7 @@ const Auth = ({ userProfile }) => {
         // Upload data to database
         userData.child(id).set(result.user)
         
-        userProfile(name, email, photoUrl);
+        userProfile(name, email, photoUrl, id);
         return result.accessToken;
       } else {
         return { cancelled: true };

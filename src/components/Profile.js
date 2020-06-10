@@ -20,7 +20,8 @@ const Profile = ({ auth: { userName, userEmail, userImage } }) => {
 
 const mapStateToProps = state => ({
   auth: state.auth
-})
+});
+
 export default connect(mapStateToProps)(Profile)
 
 const styles = StyleSheet.create({
