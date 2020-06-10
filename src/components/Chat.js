@@ -5,7 +5,6 @@ import {
   View,
   TextInput,
   KeyboardAvoidingView,
-  ScrollView,
   TouchableOpacity,
   FlatList,
   Dimensions,
@@ -13,26 +12,20 @@ import {
   TouchableWithoutFeedback,
   Keyboard
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+
 import Icon from "@expo/vector-icons/Ionicons";
 import { connect } from "react-redux";
 import dataBase from "../config/firebaseConfig";
 import Messages from "./Messages";
-// import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+
+const { height, width } = Dimensions.get("window");
 
 const Chat = ({ route: { params }, auth: { userId } }) => {
-  const defaultMsgs = [
-    { id: 1, from: 12, message: "Hi" },
-    { id: 2, from: 12, message: "Hello" },
-    { id: 3, from: 12, message: "welcome" },
-    { id: 4, from: 12, message: "thanks" }
-  ];
   const [textMessage, setTextMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const { id } = params;
   const convoIdFrom = userId + id;
   const convoIdTo = id + userId;
-  // const recieverId = id + userId;
 
   useEffect(() => {
     dataBase
@@ -41,7 +34,6 @@ const Chat = ({ route: { params }, auth: { userId } }) => {
       .on("value", snap => {
         let msgs = [];
         snap.forEach(child => {
-          //  console.log("SNAP CHILD :", child.val());
           msgs.push({
             from: child.val().from,
             createdAt: child.val().createdAt,
@@ -56,7 +48,6 @@ const Chat = ({ route: { params }, auth: { userId } }) => {
       .on("value", snap => {
         let msgs = [];
         snap.forEach(child => {
-          //  console.log("SNAP CHILD :", child.val());
           msgs.push({
             from: child.val().from,
             createdAt: child.val().createdAt,
@@ -89,7 +80,6 @@ const Chat = ({ route: { params }, auth: { userId } }) => {
     }
   };
 
-  const { height, width } = Dimensions.get("window");
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
@@ -100,12 +90,7 @@ const Chat = ({ route: { params }, auth: { userId } }) => {
         <Fragment>
           {messages.length > 0 ? (
             <FlatList
-              style={{
-                flex: 1,
-                padding: 10,
-                height: height * 1,
-                backgroundColor: "white"
-              }}
+              style={styles.flatList}
               data={messages}
               renderItem={({ item }) => (
                 <Messages item={item} userId={userId} />
@@ -115,7 +100,6 @@ const Chat = ({ route: { params }, auth: { userId } }) => {
           ) : (
             <Text>Start conversation</Text>
           )}
-
           <View style={styles.chatBoxContainer}>
             <TextInput
               style={styles.textInput}
@@ -171,5 +155,11 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 10,
     marginLeft: 10
+  },
+  flatList: {
+    flex: 1,
+    padding: 10,
+    height: height * 1,
+    backgroundColor: "white"
   }
 });

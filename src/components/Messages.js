@@ -7,13 +7,13 @@ const Messages = ({ item, userId }) => {
 
   const { height, width } = Dimensions.get("window");
 
-  const convertTime = (time) => {
+  const convertTime = time => {
     let date = new Date(time);
     let newDate = new Date();
-    let result = (date.getHours() < 10 ? '0': '') + date.getHours() + ':';
-    result += (date.getMinutes() < 10 ? '0': '') + date.getMinutes();
+    let result = (date.getHours() < 10 ? "0" : "") + date.getHours() + ":";
+    result += (date.getMinutes() < 10 ? "0" : "") + date.getMinutes();
     if (newDate.getDay() !== date.getDay()) {
-      result = `${result}`
+      result = `${result}`;
     }
     return result;
   };
@@ -55,8 +55,8 @@ const styles = StyleSheet.create({
     fontSize: 14
   },
   msgTime: {
-    color: 'grey',
+    color: "grey",
     fontSize: 11,
-    alignSelf: 'flex-end'
+    alignSelf: "flex-end"
   }
 });
