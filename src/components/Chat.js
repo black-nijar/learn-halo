@@ -9,13 +9,16 @@ import {
   TouchableOpacity,
   FlatList,
   Dimensions,
-  Platform
+  Platform,
+  TouchableWithoutFeedback,
+  Keyboard
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from "@expo/vector-icons/Ionicons";
 import { connect } from "react-redux";
 import dataBase from "../config/firebaseConfig";
 import Messages from "./Messages";
+// import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 const Chat = ({ route: { params }, auth: { userId } }) => {
   const defaultMsgs = [
@@ -85,20 +88,22 @@ const Chat = ({ route: { params }, auth: { userId } }) => {
       setTextMessage("");
     }
   };
-  
+
   const { height, width } = Dimensions.get("window");
   return (
-    <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'android' ? 'height': ''}>
-      <Fragment>
-        <ScrollView
-          keyboardDismissMode="interactive"
-          style={{ flex: 1, backgroundColor: "#fff" }}
-        >
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === "android" ? "height" : ""}
+      keyboardVerticalOffset={height > 500 ? 90 : 70}
+    >
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <Fragment>
           {messages.length > 0 ? (
             <FlatList
               style={{
+                flex: 1,
                 padding: 10,
-                height: height * 0.8,
+                height: height * 1,
                 backgroundColor: "white"
               }}
               data={messages}
@@ -110,22 +115,23 @@ const Chat = ({ route: { params }, auth: { userId } }) => {
           ) : (
             <Text>Start conversation</Text>
           )}
-        </ScrollView>
-        <View style={styles.chatBoxContainer}>
-          <TextInput
-            style={styles.textInput}
-            placeholder="Type a message"
-            onChangeText={onChange}
-            value={textMessage}
-            returnKeyType="send"
-            multiline={true}
-            autoFocus={true}
-          />
-          <TouchableOpacity style={styles.sendButtonOutline} onPress={onSend}>
-            <Icon name="md-send" style={styles.sendButton} size={23} />
-          </TouchableOpacity>
-        </View>
-      </Fragment>
+
+          <View style={styles.chatBoxContainer}>
+            <TextInput
+              style={styles.textInput}
+              placeholder="Type a message"
+              onChangeText={onChange}
+              value={textMessage}
+              returnKeyType="send"
+              multiline={true}
+              autoFocus={true}
+            />
+            <TouchableOpacity style={styles.sendButtonOutline} onPress={onSend}>
+              <Icon name="md-send" style={styles.sendButton} size={23} />
+            </TouchableOpacity>
+          </View>
+        </Fragment>
+      </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );
 };
@@ -144,8 +150,7 @@ const styles = StyleSheet.create({
     borderColor: "grey",
     borderWidth: 1,
     borderRadius: 10,
-    paddingLeft: 7,
-    marginBottom: 5
+    paddingLeft: 7
   },
   chatBox: {
     flexDirection: "row",
@@ -160,10 +165,6 @@ const styles = StyleSheet.create({
   chatBoxContainer: {
     flexDirection: "row",
     padding: 5
-    //marginTop: 0
-  },
-  messagesList: {
-    flex: 1
   },
   sendButtonOutline: {
     backgroundColor: "#128C7E",

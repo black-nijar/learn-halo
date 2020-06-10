@@ -1,35 +1,37 @@
-import React, { useState } from 'react'
-import { View } from 'react-native'
-import * as Google from 'expo-google-app-auth';
-import { connect } from 'react-redux';
+import React, { useState } from "react";
+import { View } from "react-native";
+import * as Google from "expo-google-app-auth";
+import { connect } from "react-redux";
 
-import dataBase from '../config/firebaseConfig';
+import dataBase from "../config/firebaseConfig";
 
-import SignIn from './SignIn';
+import SignIn from "./SignIn";
 
-import { userProfile } from '../actions/action';
+import { userProfile } from "../actions/action";
 
 const Auth = ({ userProfile }) => {
   //OAuth ID
-  
+ 
   //Child path for DB
-  const userData = dataBase.child('users');
-  
+  const userData = dataBase.child("users");
+
   //Google signin
   const signInWithGoogleAsync = async () => {
     try {
       const result = await Google.logInAsync({
         androidClientId: ANDROID_ID,
-       // iosClientId: IOS_ID,
-        scopes: ['profile', 'email'],
+        // iosClientId: IOS_ID,
+        scopes: ["profile", "email"]
       });
 
-      if (result.type === 'success') {
-        const { user: { name, email, photoUrl, familyName, id } } = result;
+      if (result.type === "success") {
+        const {
+          user: { name, email, photoUrl, familyName, id }
+        } = result;
 
         // Upload data to database
-        userData.child(id).set(result.user)
-        
+        userData.child(id).set(result.user);
+
         userProfile(name, email, photoUrl, id);
         return result.accessToken;
       } else {
@@ -44,17 +46,18 @@ const Auth = ({ userProfile }) => {
   const signOutWithGoogleAsync = async () => {
     try {
       await Google.logOutAsync({
-        accessToken, androidClientId: ANDROID_ID
-      })
+        accessToken,
+        androidClientId: ANDROID_ID
+      });
     } catch (error) {
       throw new Error(error);
     }
-  }
+  };
   return (
     <View>
-      <SignIn onSignIn={signInWithGoogleAsync}/>
+      <SignIn onSignIn={signInWithGoogleAsync} />
     </View>
-  )
-}
+  );
+};
 
-export default connect(null, { userProfile })(Auth)
+export default connect(null, { userProfile })(Auth);
