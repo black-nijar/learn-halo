@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, Component } from "react";
 import {
   StyleSheet,
   Text,
@@ -20,105 +20,128 @@ import Messages from "./Messages";
 
 const { height, width } = Dimensions.get("window");
 
-const Chat = ({ route: { params }, auth: { userId }, navigation }) => {
-  const [textMessage, setTextMessage] = useState("");
-  const [messages, setMessages] = useState([]);
-  const { id } = params;
-  const convoIdFrom = userId + id;
-  const convoIdTo = id + userId;
-
-  useEffect(() => {
+class Chat extends Component {
+  state = {
+    text: "",
+    allMessages: []
+  };
+  componentDidMount() {
+    const {
+      route: { params }
+    } = this.props;
+    const {
+      auth: { userId }
+    } = this.props;
+    const { id } = params;
+    const convoIdFrom = userId + id;
+    const convoIdTo = id + userId; 
+    var msgs = [];
     dataBase
       .child("messages")
       .child(convoIdFrom)
-      .on("value", snap => {
-        let msgs = [];
-        snap.forEach(child => {
-          msgs.push({
-            from: child.val().from,
-            createdAt: child.val().createdAt,
-            message: child.val().message
-          });
+      .on("child_added", snap => {
+       console.log("SNAP FROM :", snap);
+        const snapValue = snap.val();
+        msgs.push({
+          from: snapValue.from,
+          createdAt: snapValue.createdAt,
+          message: snapValue.message
         });
-        setMessages(msgs);
+        this.setState({ allMessages: msgs });
       });
-    dataBase
-      .child("messages")
-      .child(convoIdTo)
-      .on("value", snap => {
-        let msgs = [];
-        snap.forEach(child => {
-          msgs.push({
-            from: child.val().from,
-            createdAt: child.val().createdAt,
-            message: child.val().message
-          });
-        });
-        setMessages(msgs);
-      });
-  }, []);
-
-  const onChange = text => {
-    setTextMessage(text);
+  }
+  onChange = text => {
+    this.setState({ text });
   };
-  const onSend = async () => {
-    if (textMessage.length > 0) {
+
+  // Sending message to firebase
+  onSend = () => {
+    const {
+      route: { params }
+    } = this.props;
+    const {
+      auth: { userId }
+    } = this.props;
+    const { id } = params;
+    const convoIdFrom = userId + id;
+    const convoIdTo = id + userId;
+    console.log('TEXT :', this.state.text)
+    if (this.state.text.length > 0) {
       let msgId = dataBase
         .child("messages")
         .child(convoIdFrom)
         .push().key;
       let updates = {};
       let message = {
-        message: textMessage,
+        message: this.state.text,
         createdAt: new Date().getTime(),
         from: userId,
         to: id
       };
       updates[`messages/${convoIdFrom}/${msgId}`] = message;
-      await dataBase.update(updates);
-      setTextMessage("");
+      dataBase.update(updates);
+      this.setState({ text: "" });
     }
   };
-
-  return (
-    <KeyboardAvoidingView
-      style={{ flex: 1 }}
-      behavior={Platform.OS === "android" ? "height" : ""}
-      keyboardVerticalOffset={height > 500 ? 90 : 70}
-    >
-      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <Fragment>
-          {messages.length > 0 ? (
-            <FlatList
-              style={styles.flatList}
-              data={messages}
-              renderItem={({ item }) => (
-                <Messages item={item} userId={userId} navigation={navigation} />
-              )}
-              keyExtractor={(item, index) => index.toString()}
-            />
-          ) : (
-            <Text>Start conversation</Text>
-          )}
-          <View style={styles.chatBoxContainer}>
-            <TextInput
-              style={styles.textInput}
-              placeholder="Type a message"
-              onChangeText={onChange}
-              value={textMessage}
-              returnKeyType="send"
-              multiline={true}
-              autoFocus={true}
-            />
-            <TouchableOpacity style={styles.sendButtonOutline} onPress={onSend}>
-              <Icon name="md-send" style={styles.sendButton} size={20} />
-            </TouchableOpacity>
-          </View>
-        </Fragment>
-      </TouchableWithoutFeedback>
-    </KeyboardAvoidingView>
-  );
-};
+  render() {
+    const {
+      route: { params },
+      navigation
+    } = this.props;
+    const {
+      auth: { userId }
+    } = this.props;
+    const { id } = params;
+    const convoIdFrom = userId + id;
+    const convoIdTo = id + userId;
+    console.log("MESS :", this.state.allMessages);
+    return (
+      <KeyboardAvoidingView style={{ flex: 1 }}>
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+          <Fragment>
+            {this.state.allMessages.length > 0 ? (
+              <FlatList
+                style={styles.flatList}
+                data={this.state.allMessages.sort((a, b) => {
+                  return (
+                    new Date(a.createdAt).getTime() -
+                    new Date(b.createdAt).getTime()
+                  );
+                })}
+                renderItem={({ item }) => (
+                  <Messages
+                    item={item}
+                    userId={userId}
+                    navigation={navigation}
+                  />
+                )}
+                keyExtractor={(item, index) => index.toString()}
+              />
+            ) : (
+              <Text>Start conversation</Text>
+            )}
+            <View style={styles.chatBoxContainer}>
+              <TextInput
+                style={styles.textInput}
+                placeholder='Type a message'
+                onChangeText={this.onChange}
+                value={this.state.text}
+                returnKeyType='send'
+                multiline={true}
+              />
+              <TouchableOpacity
+                style={styles.sendButtonOutline}
+                onPress={this.onSend}
+              >
+                <Icon name='md-send' style={styles.sendButton} size={20} />
+              </TouchableOpacity>
+            </View>
+          </Fragment>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
+    );
+  }
+}
 
 const mapStateToProps = state => ({
   auth: state.auth

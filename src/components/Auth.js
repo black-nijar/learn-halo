@@ -28,7 +28,6 @@ const Auth = ({ userProfile }) => {
         const {
           user: { name, email, photoUrl, familyName, id }
         } = result;
-
         // Upload data to database
         userData.child(id).set(result.user);
 

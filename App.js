@@ -30,22 +30,22 @@ const HomeStack = ({ navigation }) => {
       }}
     >
       <Stack.Screen
-        name="HaloApp"
+        name='HaloApp'
         component={TopTab}
         options={{
           title: "HaloApp",
           headerRight: () => (
             <Ionicons.Button
-              name="ios-menu"
+              name='ios-menu'
               size={25}
-              backgroundColor="#128C7E"
+              backgroundColor='#128C7E'
               onPress={() => navigation.openDrawer()}
             ></Ionicons.Button>
           )
         }}
       />
       <Stack.Screen
-        name="Chat"
+        name='Chat'
         options={({ route }) => ({
           title: route.params.givenName,
           headerTitleAlign: "center"
@@ -53,11 +53,11 @@ const HomeStack = ({ navigation }) => {
         component={Chat}
       />
       <Stack.Screen
-        name="Bilingual"
-        options={{title: 'Message', headerTitleAlign:'center'}}
+        name='Bilingual'
+        options={{ title: "Message", headerTitleAlign: "center" }}
         component={Bilingual}
       />
-    </Stack.Navigator>  
+    </Stack.Navigator>
   );
 };
 
@@ -71,15 +71,15 @@ const ProfileStack = ({ navigation }) => {
       }}
     >
       <Stack.Screen
-        name="Profile"
+        name='Profile'
         component={Profile}
         options={{
           title: "Profile",
           headerRight: () => (
             <Ionicons.Button
-              name="ios-menu"
+              name='ios-menu'
               size={25}
-              backgroundColor="#128C7E"
+              backgroundColor='#128C7E'
               onPress={() => navigation.openDrawer()}
             ></Ionicons.Button>
           )
@@ -99,15 +99,15 @@ const SettingsStack = ({ navigation }) => {
       }}
     >
       <Stack.Screen
-        name="Profile"
+        name='Profile'
         component={Settings}
         options={{
           title: "Settings",
           headerRight: () => (
             <Ionicons.Button
-              name="ios-menu"
+              name='ios-menu'
               size={25}
-              backgroundColor="#128C7E"
+              backgroundColor='#128C7E'
               onPress={() => navigation.openDrawer()}
             ></Ionicons.Button>
           )
@@ -120,9 +120,9 @@ const SettingsStack = ({ navigation }) => {
 const DrawerNavigation = () => {
   return (
     <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
-      <Drawer.Screen name="Home" component={HomeStack} />
-      <Drawer.Screen name="Profile" component={ProfileStack} />
-      <Drawer.Screen name="Settings" component={SettingsStack} />
+      <Drawer.Screen name='Home' component={HomeStack} />
+      <Drawer.Screen name='Profile' component={ProfileStack} />
+      <Drawer.Screen name='Settings' component={SettingsStack} />
     </Drawer.Navigator>
   );
 };
