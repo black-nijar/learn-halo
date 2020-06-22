@@ -8,19 +8,25 @@ import { connect } from 'react-redux';
 import { usersData, searchUser } from '../actions/action';
 import UserItem from './UserItem.js';
 
-const SearchUser = ({ usersData, users, searchUser, filteredUser, navigation }) => {
+const SearchUser = ({
+  usersData,
+  users,
+  searchUser,
+  filteredUser,
+  navigation
+}) => {
   const [name, setName] = useState('');
 
   useEffect(() => {
-    dataBase.on('value', (snap) => {
+    dataBase.on('value', snap => {
       const data = snap.val();
       usersData(data);
-    })
+    });
   }, []);
 
   const onChange = text => searchUser(text, users);
 
-  //Filter user 
+  //Filter user
   const listUser = filteredUser.length > 0 ? filteredUser : users;
 
   return (
@@ -32,25 +38,27 @@ const SearchUser = ({ usersData, users, searchUser, filteredUser, navigation }) 
           onChangeText={onChange}
           textContentType='username'
         />
-        {
-          listUser ? (
-            <FlatList
-              data={listUser}
-              renderItem={({ item }) => <UserItem user={item} navigation={navigation}/>}
-              keyExtractor={item => item.id}
-            />
-          ) : <Text>No Contacts...</Text>
-        }
+        {listUser ? (
+          <FlatList
+            data={listUser}
+            renderItem={({ item }) => (
+              <UserItem user={item} navigation={navigation} />
+            )}
+            keyExtractor={item => item.id}
+          />
+        ) : (
+          <Text>No Contacts...</Text>
+        )}
       </View>
     </SafeAreaView>
-  )
+  );
 };
 
 const mapStateToProps = state => ({
   users: state.users,
   filteredUser: state.filteredUser
-})
-export default connect(mapStateToProps, { usersData, searchUser })(SearchUser)
+});
+export default connect(mapStateToProps, { usersData, searchUser })(SearchUser);
 
 const styles = StyleSheet.create({
   textInput: {
@@ -64,4 +72,4 @@ const styles = StyleSheet.create({
     marginTop: 5,
     padding: 10
   }
-})
+});

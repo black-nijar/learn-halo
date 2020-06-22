@@ -1,4 +1,4 @@
-import { USERS } from "../actions/actionType";
+import { USERS } from '../actions/actionType';
 
 const initState = {
   email: '',
@@ -7,7 +7,7 @@ const initState = {
   id: '',
   name: '',
   photoUrl: ''
-}
+};
 
 export const usersReducer = (state = initState, action) => {
   const { type, payload } = action;
@@ -16,7 +16,7 @@ export const usersReducer = (state = initState, action) => {
       //console.log('USERS ;',payload);
       const { users } = payload;
       const usersDetail = [];
-      for(let key in users) {
+      for (let key in users) {
         const email = users[key].email;
         const familyName = users[key].familyName;
         const givenName = users[key].givenName;
@@ -25,8 +25,8 @@ export const usersReducer = (state = initState, action) => {
         const photoUrl = users[key].photoUrl;
         usersDetail.push({ email, familyName, givenName, id, name, photoUrl });
       }
-      return usersDetail
+      return usersDetail;
     default:
-      return state; 
-    }
-}
+      return state;
+  }
+};

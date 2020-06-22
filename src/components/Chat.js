@@ -1,4 +1,4 @@
-import React, { Fragment, Component } from "react";
+import React, { Fragment, Component } from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,21 +8,20 @@ import {
   TouchableOpacity,
   FlatList,
   Dimensions,
-  Platform,
   TouchableWithoutFeedback,
   Keyboard
-} from "react-native";
+} from 'react-native';
 
-import Icon from "@expo/vector-icons/Ionicons";
-import { connect } from "react-redux";
-import dataBase from "../config/firebaseConfig";
-import Messages from "./Messages";
+import Icon from '@expo/vector-icons/Ionicons';
+import { connect } from 'react-redux';
+import dataBase from '../config/firebaseConfig';
+import Messages from './Messages';
 
-const { height, width } = Dimensions.get("window");
+const { height, width } = Dimensions.get('window');
 
 class Chat extends Component {
   state = {
-    text: "",
+    text: '',
     allMessages: []
   };
   componentDidMount() {
@@ -34,13 +33,13 @@ class Chat extends Component {
     } = this.props;
     const { id } = params;
     const convoIdFrom = userId + id;
-    const convoIdTo = id + userId; 
+    const convoIdTo = id + userId;
     var msgs = [];
     dataBase
-      .child("messages")
+      .child('messages')
       .child(convoIdFrom)
-      .on("child_added", snap => {
-       console.log("SNAP FROM :", snap);
+      .on('child_added', snap => {
+        console.log('SNAP FROM :', snap);
         const snapValue = snap.val();
         msgs.push({
           from: snapValue.from,
@@ -50,6 +49,7 @@ class Chat extends Component {
         this.setState({ allMessages: msgs });
       });
   }
+
   onChange = text => {
     this.setState({ text });
   };
@@ -65,10 +65,10 @@ class Chat extends Component {
     const { id } = params;
     const convoIdFrom = userId + id;
     const convoIdTo = id + userId;
-    console.log('TEXT :', this.state.text)
+    console.log('TEXT :', this.state.text);
     if (this.state.text.length > 0) {
       let msgId = dataBase
-        .child("messages")
+        .child('messages')
         .child(convoIdFrom)
         .push().key;
       let updates = {};
@@ -80,7 +80,7 @@ class Chat extends Component {
       };
       updates[`messages/${convoIdFrom}/${msgId}`] = message;
       dataBase.update(updates);
-      this.setState({ text: "" });
+      this.setState({ text: '' });
     }
   };
   render() {
@@ -94,13 +94,21 @@ class Chat extends Component {
     const { id } = params;
     const convoIdFrom = userId + id;
     const convoIdTo = id + userId;
-    console.log("MESS :", this.state.allMessages);
+    console.log('MESS :', this.state.allMessages);
+
     return (
       <KeyboardAvoidingView style={{ flex: 1 }}>
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
           <Fragment>
             {this.state.allMessages.length > 0 ? (
               <FlatList
+                ref={ref => {
+                  this.scrollView = ref;
+                }}
+                
+                onContentSizeChange={() =>
+                  this.scrollView.scrollToEnd({ animated: true })
+                }
                 style={styles.flatList}
                 data={this.state.allMessages.sort((a, b) => {
                   return (
@@ -154,27 +162,27 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 38,
     fontSize: 15,
-    borderColor: "grey",
+    borderColor: 'grey',
     borderWidth: 1,
     borderRadius: 10,
     paddingLeft: 7
   },
   chatBox: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     paddingRight: 10
   },
   sendButton: {
-    color: "white",
+    color: 'white',
     paddingLeft: 5,
-    alignItems: "center"
+    alignItems: 'center'
   },
   chatBoxContainer: {
-    flexDirection: "row",
+    flexDirection: 'row',
     padding: 5
   },
   sendButtonOutline: {
-    backgroundColor: "#128C7E",
+    backgroundColor: '#128C7E',
     borderRadius: 20,
     padding: 10,
     marginLeft: 10
@@ -183,6 +191,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     height: height * 1,
-    backgroundColor: "white"
+    backgroundColor: 'white'
   }
 });

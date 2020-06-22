@@ -1,19 +1,19 @@
-import React from "react";
-import { StyleSheet, Text, View, Dimensions } from "react-native";
+import React from 'react';
+import { StyleSheet, Text, View, Dimensions } from 'react-native';
 
 const Bilingual = ({ route: { params } }) => {
   const {
     item: { message, createdAt, from },
     userId: { userId }
   } = params;
-  const { height, width } = Dimensions.get("window");
+  const { height, width } = Dimensions.get('window');
 
   //Convert Time
   const convertTime = time => {
     let date = new Date(time);
     let newDate = new Date();
-    let result = (date.getHours() < 10 ? "0" : "") + date.getHours() + ":";
-    result += (date.getMinutes() < 10 ? "0" : "") + date.getMinutes();
+    let result = (date.getHours() < 10 ? '0' : '') + date.getHours() + ':';
+    result += (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
     if (newDate.getDay() !== date.getDay()) {
       result = `${result}`;
     }
@@ -21,15 +21,15 @@ const Bilingual = ({ route: { params } }) => {
   };
   return (
     <View>
-      {message !== "undefined" ? (
+      {message !== 'undefined' ? (
         <View style={styles.msgContainer}>
           <View
             style={{
               flex: 1,
-              flexDirection: "column",
+              flexDirection: 'column',
               maxWidth: width / 2 + 10,
-              alignSelf: from === userId ? "flex-end" : "flex-start",
-              backgroundColor: from === userId ? "lightblue" : "lightgrey",
+              alignSelf: from === userId ? 'flex-end' : 'flex-start',
+              backgroundColor: from === userId ? 'lightblue' : 'lightgrey',
               borderRadius: 10,
               padding: 50,
               margin: 10
@@ -38,9 +38,9 @@ const Bilingual = ({ route: { params } }) => {
             <Text style={styles.textMessage}>{message}</Text>
             <Text
               style={{
-                color: from === userId ? "grey" : "green",
+                color: from === userId ? 'grey' : 'green',
                 fontSize: 11,
-                alignSelf: "flex-end"
+                alignSelf: 'flex-end'
               }}
             >
               {convertTime(createdAt)}
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   textMessage: {
-    color: "black",
+    color: 'black',
     padding: 8,
     fontSize: 14
   }

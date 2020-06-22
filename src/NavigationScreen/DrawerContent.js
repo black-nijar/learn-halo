@@ -1,14 +1,16 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 
 import { connect } from 'react-redux';
 
-import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer'
+import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Avatar, Title, Caption, Drawer } from 'react-native-paper';
 
-const DrawerContent = (props) => {
-  const { auth: { userName, userImage, userEmail } } = props;
+const DrawerContent = props => {
+  const {
+    auth: { userName, userImage, userEmail }
+  } = props;
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView {...props}>
@@ -29,67 +31,73 @@ const DrawerContent = (props) => {
                   <Icon name='home-outline' color={color} size={size} />
                 )}
                 label='Home'
-                onPress={() => { props.navigation.navigate('Home') }}
+                onPress={() => {
+                  props.navigation.navigate('Home');
+                }}
               />
               <DrawerItem
                 icon={({ color, size }) => (
                   <Icon name='account-outline' color={color} size={size} />
                 )}
                 label='Profile'
-                onPress={() => { props.navigation.navigate('Profile') }}
+                onPress={() => {
+                  props.navigation.navigate('Profile');
+                }}
               />
               <DrawerItem
                 icon={({ color, size }) => (
                   <Icon name='settings-outline' color={color} size={size} />
                 )}
                 label='Settings'
-                onPress={() => { props.navigation.navigate('Settings') }}
+                onPress={() => {
+                  props.navigation.navigate('Settings');
+                }}
               />
             </Drawer.Section>
           </View>
         </View>
       </DrawerContentScrollView>
     </View>
-  )
-}
+  );
+};
 
 const mapStateToProps = state => ({
   auth: state.auth
-})
-export default connect(mapStateToProps)(DrawerContent)
+});
+export default connect(mapStateToProps)(DrawerContent);
 
 const styles = StyleSheet.create({
   drawerContent: {
-    flex: 1,
+    flex: 1
   },
   userInfoSection: {
-    paddingLeft: 20,
+    paddingLeft: 20
   },
   title: {
     fontSize: 16,
     marginTop: 3,
-    fontWeight: 'bold',
+    fontWeight: 'bold'
   },
   caption: {
     fontSize: 14,
-    lineHeight: 14,
+    lineHeight: 14
   },
   row: {
     marginTop: 20,
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   section: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginRight: 15,
+    marginRight: 15
   },
   paragraph: {
     fontWeight: 'bold',
-    marginRight: 3,
+    marginRight: 3
   },
   drawerSection: {
-    marginTop: 15,
+    marginTop: 15
   },
   bottomDrawerSection: {
     marginBottom: 15,
@@ -100,6 +108,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingVertical: 12,
-    paddingHorizontal: 16,
-  },
+    paddingHorizontal: 16
+  }
 });

@@ -9,24 +9,24 @@ const Tab = createMaterialTopTabNavigator();
 const TopTab = () => {
   return (
     <Tab.Navigator
-      initialRouteName="Feed"
+      initialRouteName='Feed'
       tabBarOptions={{
         activeTintColor: '#fff',
         labelStyle: { fontSize: 12 },
-        style: { backgroundColor: '#128C7E' },
+        style: { backgroundColor: '#128C7E' }
       }}
     >
       <Tab.Screen
-        name="Feed"
+        name='Feed'
         component={Chats}
         options={{ tabBarLabel: 'Chats' }}
       />
       <Tab.Screen
-        name="Search"
+        name='Search'
         component={SearchUser}
         options={{ tabBarLabel: 'Search' }}
       />
     </Tab.Navigator>
   );
-}
-export default TopTab
+};
+export default TopTab;

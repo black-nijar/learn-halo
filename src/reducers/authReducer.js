@@ -1,4 +1,4 @@
-import { USER_PROFILE } from "../actions/actionType";
+import { USER_PROFILE } from '../actions/actionType';
 
 const initState = {
   userName: '',
@@ -6,9 +6,8 @@ const initState = {
   userEmail: '',
   isAuthenticated: false,
   loading: true
-}
+};
 export const authReducer = (state = initState, action) => {
-
   const { type, payload } = action;
   switch (type) {
     case USER_PROFILE:
@@ -20,8 +19,8 @@ export const authReducer = (state = initState, action) => {
         userId: payload.id,
         isAuthenticated: true,
         loading: false
-      }
+      };
     default:
-      return state; 
-    }
-}
+      return state;
+  }
+};
