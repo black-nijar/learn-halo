@@ -53,7 +53,7 @@ const Messages = ({ item, userId, navigation }) => {
           </TouchableOpacity>
         </View>
       ) : (
-        <Text>checking...</Text>
+        <Text>connecting...</Text>
       )}
     </View>
   );

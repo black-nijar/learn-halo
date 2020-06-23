@@ -25,21 +25,21 @@ class Chat extends Component {
     allMessages: []
   };
   componentDidMount() {
-    const {
-      route: { params }
-    } = this.props;
-    const {
-      auth: { userId }
-    } = this.props;
+    const { route: { params },  auth: { userId } } = this.props;
     const { id } = params;
     const convoIdFrom = userId + id;
     const convoIdTo = id + userId;
     var msgs = [];
+    this.fetchingFromMessages(msgs, convoIdFrom);
+    this.fetchingToMessages(msgs, convoIdTo);
+  };
+
+  // Fetching ConvoIDFrom Messages
+  fetchingFromMessages = (msgs, convoIdFrom) => {
     dataBase
       .child('messages')
       .child(convoIdFrom)
       .on('child_added', snap => {
-        console.log('SNAP FROM :', snap);
         const snapValue = snap.val();
         msgs.push({
           from: snapValue.from,
@@ -48,24 +48,32 @@ class Chat extends Component {
         });
         this.setState({ allMessages: msgs });
       });
-  }
+  };
 
+  // Fetching ConvoIDTo Messages
+  fetchingToMessages = (msgs, convoIdTo) => {
+    dataBase
+      .child('messages')
+      .child(convoIdTo)
+      .on('child_added', snap => {
+        const snapValue = snap.val();
+        msgs.push({
+          from: snapValue.from,
+          createdAt: snapValue.createdAt,
+          message: snapValue.message
+        });
+        this.setState({ allMessages: msgs });
+      });
+  };
   onChange = text => {
     this.setState({ text });
   };
 
   // Sending message to firebase
   onSend = () => {
-    const {
-      route: { params }
-    } = this.props;
-    const {
-      auth: { userId }
-    } = this.props;
+    const { route: { params }, auth: { userId } } = this.props;
     const { id } = params;
     const convoIdFrom = userId + id;
-    const convoIdTo = id + userId;
-    console.log('TEXT :', this.state.text);
     if (this.state.text.length > 0) {
       let msgId = dataBase
         .child('messages')
@@ -84,18 +92,7 @@ class Chat extends Component {
     }
   };
   render() {
-    const {
-      route: { params },
-      navigation
-    } = this.props;
-    const {
-      auth: { userId }
-    } = this.props;
-    const { id } = params;
-    const convoIdFrom = userId + id;
-    const convoIdTo = id + userId;
-    console.log('MESS :', this.state.allMessages);
-
+    const { navigation,  auth: { userId } } = this.props;
     return (
       <KeyboardAvoidingView style={{ flex: 1 }}>
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -105,7 +102,6 @@ class Chat extends Component {
                 ref={ref => {
                   this.scrollView = ref;
                 }}
-                
                 onContentSizeChange={() =>
                   this.scrollView.scrollToEnd({ animated: true })
                 }
