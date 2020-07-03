@@ -24,6 +24,7 @@ class Chat extends Component {
     text: '',
     allMessages: []
   };
+  // Fetching messages
   componentDidMount() {
     const {
       route: { params },
@@ -38,36 +39,45 @@ class Chat extends Component {
   }
 
   // Fetching ConvoIDFrom Messages
-  fetchingFromMessages = (msgs, convoIdFrom) => {
-    dataBase
-      .child('messages')
-      .child(convoIdFrom)
-      .on('child_added', snap => {
-        const snapValue = snap.val();
-        msgs.push({
-          from: snapValue.from,
-          createdAt: snapValue.createdAt,
-          message: snapValue.message
+  fetchingFromMessages = async (msgs, convoIdFrom) => {
+    try {
+      await dataBase
+        .child('messages')
+        .child(convoIdFrom)
+        .on('child_added', snap => {
+          const snapValue = snap.val();
+          msgs.push({
+            from: snapValue.from,
+            createdAt: snapValue.createdAt,
+            message: snapValue.message
+          });
+          this.setState({ allMessages: msgs });
         });
-        this.setState({ allMessages: msgs });
-      });
+    } catch (error) {
+      alert('ERROR :', error);
+    }
   };
 
   // Fetching ConvoIDTo Messages
-  fetchingToMessages = (msgs, convoIdTo) => {
-    dataBase
-      .child('messages')
-      .child(convoIdTo)
-      .on('child_added', snap => {
-        const snapValue = snap.val();
-        msgs.push({
-          from: snapValue.from,
-          createdAt: snapValue.createdAt,
-          message: snapValue.message
+  fetchingToMessages = async (msgs, convoIdTo) => {
+    try {
+      await dataBase
+        .child('messages')
+        .child(convoIdTo)
+        .on('child_added', snap => {
+          const snapValue = snap.val();
+          msgs.push({
+            from: snapValue.from,
+            createdAt: snapValue.createdAt,
+            message: snapValue.message
+          });
+          this.setState({ allMessages: msgs });
         });
-        this.setState({ allMessages: msgs });
-      });
+    } catch (error) {
+      alert('ERROR :', error);
+    }
   };
+
   onChange = text => {
     this.setState({ text });
   };
@@ -122,11 +132,13 @@ class Chat extends Component {
                   );
                 })}
                 renderItem={({ item }) => (
-                  <Messages
-                    item={item}
-                    userId={userId}
-                    navigation={navigation}
-                  />
+                  <View style={{ marginBottom: 10 }}>
+                    <Messages
+                      item={item}
+                      userId={userId}
+                      navigation={navigation}
+                    />
+                  </View>
                 )}
                 keyExtractor={(item, index) => index.toString()}
               />
@@ -201,14 +213,15 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   startConvo: {
-    backgroundColor: '#b0c6e8',
+    backgroundColor: '#fff',
     textAlign: 'center',
-    margin: 10,
-    padding: 10,
-    borderRadius: 10
+    borderRadius: 10,
+    height: '92%'
   },
   startConvoText: {
     textAlign: 'center',
-    color: '#2c384a'
+    color: '#2c384a',
+    marginTop: 20,
+    fontSize: 20
   }
 });

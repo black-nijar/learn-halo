@@ -33,7 +33,7 @@ const Messages = ({ item, userId, navigation }) => {
             backgroundColor: item.from === userId ? 'lightblue' : 'lightgrey',
             borderRadius: 10,
             padding: 5,
-            marginBottom: 10
+            marginBottom: 5
           }}
         >
           <TouchableOpacity
@@ -52,7 +52,7 @@ const Messages = ({ item, userId, navigation }) => {
           </TouchableOpacity>
         </View>
       ) : (
-        <Text>connecting...</Text>
+        <Text style={{ textAlign: 'center' }}>connecting...</Text>
       )}
     </View>
   );

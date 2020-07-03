@@ -1,21 +1,21 @@
-import "react-native-gesture-handler";
-import * as React from "react";
-import { StyleSheet, View } from "react-native";
-import { connect } from "react-redux";
+import 'react-native-gesture-handler';
+import * as React from 'react';
+import { StyleSheet, View } from 'react-native';
+import { connect } from 'react-redux';
 
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import { createDrawerNavigator } from "@react-navigation/drawer";
-import { Ionicons } from "react-native-vector-icons";
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { Ionicons } from 'react-native-vector-icons';
 
-import TopTab from "./src/NavigationScreen/TopBarNavigation";
-import DrawerContent from "./src/NavigationScreen/DrawerContent";
+import TopTab from './src/NavigationScreen/TopBarNavigation';
+import DrawerContent from './src/NavigationScreen/DrawerContent';
 
-import Auth from "./src/components/Auth";
-import Profile from "./src/components/Profile";
-import Settings from "./src/components/Settings";
-import Chat from "./src/components/Chat";
-import Bilingual from "./src/components/Bilingual";
+import Auth from './src/components/Auth';
+import Profile from './src/components/Profile';
+import Settings from './src/components/Settings';
+import Bilingual from './src/components/Bilingual';
+import ChatBox from './src/components/ChatBox';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -24,16 +24,16 @@ const HomeStack = ({ navigation }) => {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerStyle: { backgroundColor: "#128C7E" },
-        headerTintColor: "#fff",
-        headerTitleStyle: { fontWeight: "bold" }
+        headerStyle: { backgroundColor: '#128C7E' },
+        headerTintColor: '#fff',
+        headerTitleStyle: { fontWeight: 'bold' }
       }}
     >
       <Stack.Screen
         name='HaloApp'
         component={TopTab}
         options={{
-          title: "HaloApp",
+          title: 'HaloApp',
           headerRight: () => (
             <Ionicons.Button
               name='ios-menu'
@@ -48,13 +48,13 @@ const HomeStack = ({ navigation }) => {
         name='Chat'
         options={({ route }) => ({
           title: route.params.givenName,
-          headerTitleAlign: "center"
+          headerTitleAlign: 'center'
         })}
-        component={Chat}
+        component={ChatBox}
       />
       <Stack.Screen
         name='Bilingual'
-        options={{ title: "Message", headerTitleAlign: "center" }}
+        options={{ title: 'Message', headerTitleAlign: 'center' }}
         component={Bilingual}
       />
     </Stack.Navigator>
@@ -65,16 +65,16 @@ const ProfileStack = ({ navigation }) => {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerStyle: { backgroundColor: "#128C7E" },
-        headerTintColor: "#fff",
-        headerTitleStyle: { fontWeight: "bold" }
+        headerStyle: { backgroundColor: '#128C7E' },
+        headerTintColor: '#fff',
+        headerTitleStyle: { fontWeight: 'bold' }
       }}
     >
       <Stack.Screen
         name='Profile'
         component={Profile}
         options={{
-          title: "Profile",
+          title: 'Profile',
           headerRight: () => (
             <Ionicons.Button
               name='ios-menu'
@@ -93,16 +93,16 @@ const SettingsStack = ({ navigation }) => {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerStyle: { backgroundColor: "#128C7E" },
-        headerTintColor: "#fff",
-        headerTitleStyle: { fontWeight: "bold" }
+        headerStyle: { backgroundColor: '#128C7E' },
+        headerTintColor: '#fff',
+        headerTitleStyle: { fontWeight: 'bold' }
       }}
     >
       <Stack.Screen
         name='Profile'
         component={Settings}
         options={{
-          title: "Settings",
+          title: 'Settings',
           headerRight: () => (
             <Ionicons.Button
               name='ios-menu'
@@ -149,6 +149,6 @@ export default connect(mapStateToProps)(App);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F5FCFF"
+    backgroundColor: '#F5FCFF'
   }
 });
