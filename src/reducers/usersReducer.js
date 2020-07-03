@@ -14,7 +14,7 @@ export const usersReducer = (state = initState, action) => {
   switch (type) {
     case USERS:
       //console.log('USERS ;',payload);
-      const { users } = payload;
+      const { users, authId } = payload;
       const usersDetail = [];
       for (let key in users) {
         const email = users[key].email;
@@ -25,7 +25,7 @@ export const usersReducer = (state = initState, action) => {
         const photoUrl = users[key].photoUrl;
         usersDetail.push({ email, familyName, givenName, id, name, photoUrl });
       }
-      return usersDetail;
+      return usersDetail.filter(user => user.id !== authId);
     default:
       return state;
   }

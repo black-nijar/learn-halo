@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, FlatList } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -13,14 +13,15 @@ const SearchUser = ({
   users,
   searchUser,
   filteredUser,
-  navigation
+  navigation,
+  auth
 }) => {
-  const [name, setName] = useState('');
-
+  // Fetching Users
   useEffect(() => {
-    dataBase.on('value', snap => {
+    dataBase.child('users').on('value', snap => {
       const data = snap.val();
-      usersData(data);
+      // console.log('AUTH :', auth.userId)
+      usersData(data, auth.userId);
     });
   }, []);
 
@@ -56,7 +57,8 @@ const SearchUser = ({
 
 const mapStateToProps = state => ({
   users: state.users,
-  filteredUser: state.filteredUser
+  filteredUser: state.filteredUser,
+  auth: state.auth
 });
 export default connect(mapStateToProps, { usersData, searchUser })(SearchUser);
 

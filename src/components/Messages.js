@@ -6,7 +6,6 @@ import {
   Dimensions,
   TouchableOpacity
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Messages = ({ item, userId, navigation }) => {
   const { height, width } = Dimensions.get('window');

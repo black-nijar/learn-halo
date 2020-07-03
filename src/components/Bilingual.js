@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, Text, View, Dimensions } from 'react-native';
 
 const Bilingual = ({ route: { params } }) => {
   const {
     item: { message, createdAt, from },
-    userId: { userId }
+    userId
   } = params;
   const { height, width } = Dimensions.get('window');
 
@@ -31,8 +31,8 @@ const Bilingual = ({ route: { params } }) => {
               alignSelf: from === userId ? 'flex-end' : 'flex-start',
               backgroundColor: from === userId ? 'lightblue' : 'lightgrey',
               borderRadius: 10,
-              padding: 50,
-              margin: 10
+              padding: 5,
+              marginBottom: 10
             }}
           >
             <Text style={styles.textMessage}>{message}</Text>
@@ -40,7 +40,8 @@ const Bilingual = ({ route: { params } }) => {
               style={{
                 color: from === userId ? 'grey' : 'green',
                 fontSize: 11,
-                alignSelf: 'flex-end'
+                alignSelf: 'flex-end',
+                padding: 10
               }}
             >
               {convertTime(createdAt)}
