@@ -126,10 +126,11 @@ const DrawerNavigation = () => {
     </Drawer.Navigator>
   );
 };
-const App = ({ auth: { isAuthenticated } }) => {
+const App = ({ auth: { isAuthenticated, loading } }) => {
+  console.log('auth', isAuthenticated, loading)
   return (
     <View style={styles.container}>
-      {isAuthenticated ? (
+      {isAuthenticated && !loading ? (
         <NavigationContainer>
           <DrawerNavigation />
         </NavigationContainer>

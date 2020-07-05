@@ -102,6 +102,7 @@ class Chat extends Component {
         from: userId,
         to: id
       };
+      dataBase.child('convoIds').child(userId).child(id).set(id)
       updates[`messages/${convoIdFrom}/${msgId}`] = message;
       dataBase.update(updates);
       this.setState({ text: '' });
@@ -216,7 +217,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     textAlign: 'center',
     borderRadius: 10,
-    height: '92%'
   },
   startConvoText: {
     textAlign: 'center',

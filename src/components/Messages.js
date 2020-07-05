@@ -52,7 +52,7 @@ const Messages = ({ item, userId, navigation }) => {
           </TouchableOpacity>
         </View>
       ) : (
-        <Text style={{ textAlign: 'center' }}>connecting...</Text>
+        <Text style={{ textAlign: 'center' }}>Updating...</Text>
       )}
     </View>
   );

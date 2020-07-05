@@ -1,12 +1,15 @@
-import { USERS } from '../actions/actionType';
+import { USERS, PARTY_USERS } from '../actions/actionType';
 
 const initState = {
-  email: '',
-  familyName: '',
-  givenName: '',
-  id: '',
-  name: '',
-  photoUrl: ''
+  users: {
+    email: '',
+    familyName: '',
+    givenName: '',
+    id: '',
+    name: '',
+    photoUrl: ''
+  },
+  party_users: []
 };
 
 export const usersReducer = (state = initState, action) => {
@@ -26,6 +29,9 @@ export const usersReducer = (state = initState, action) => {
         usersDetail.push({ email, familyName, givenName, id, name, photoUrl });
       }
       return usersDetail.filter(user => user.id !== authId);
+    case PARTY_USERS:
+     // console.log('PAYLOAD PARTY :', payload);
+      return { party_users: payload };
     default:
       return state;
   }

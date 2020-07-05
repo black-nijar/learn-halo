@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Dimensions } from 'react-native';
 
 import { connect } from 'react-redux';
 
@@ -7,6 +7,7 @@ import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Avatar, Title, Caption, Drawer } from 'react-native-paper';
 
+const { height, width } = Dimensions.get('window');
 const DrawerContent = props => {
   const {
     auth: { userName, userImage, userEmail }
@@ -68,7 +69,7 @@ export default connect(mapStateToProps)(DrawerContent);
 
 const styles = StyleSheet.create({
   drawerContent: {
-    flex: 1
+    flex: 1,
   },
   userInfoSection: {
     paddingLeft: 20
@@ -79,8 +80,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   caption: {
-    fontSize: 14,
-    lineHeight: 14
+    fontSize: 10,
+    lineHeight: 12
   },
   row: {
     marginTop: 20,

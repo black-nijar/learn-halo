@@ -4,6 +4,7 @@ const initState = {
   userName: '',
   userImage: '',
   userEmail: '',
+  userId: '',
   isAuthenticated: false,
   loading: true
 };

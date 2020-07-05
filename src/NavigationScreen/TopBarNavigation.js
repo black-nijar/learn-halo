@@ -1,8 +1,9 @@
 import React from 'react';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
-import Chats from '../components/ChatsList';
 import SearchUser from '../components/SearchUser';
+import ChatList from '../components/ChatsList';
+
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -18,7 +19,7 @@ const TopTab = () => {
     >
       <Tab.Screen
         name='Feed'
-        component={Chats}
+        component={ChatList}
         options={{ tabBarLabel: 'Chats' }}
       />
       <Tab.Screen
