@@ -48,7 +48,7 @@ const SearchUser = ({
             keyExtractor={item => item.id}
           />
         ) : (
-          <Text style={{ textAlign: 'center'}}>Updating...</Text>
+          <Text style={{ textAlign: 'center' }}>Updating...</Text>
         )}
       </View>
     </SafeAreaView>

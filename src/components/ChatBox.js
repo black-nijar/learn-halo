@@ -31,8 +31,8 @@ class Chat extends Component {
       auth: { userId }
     } = this.props;
     const { id } = params;
-    const convoIdFrom = userId + id;
-    const convoIdTo = id + userId;
+    const convoIdFrom = `${userId}&&${id}`;
+    const convoIdTo = `${id}&&${userId}`;
     var msgs = [];
     this.fetchingFromMessages(msgs, convoIdFrom);
     this.fetchingToMessages(msgs, convoIdTo);
@@ -89,7 +89,8 @@ class Chat extends Component {
       auth: { userId }
     } = this.props;
     const { id } = params;
-    const convoIdFrom = userId + id;
+    const convoIdFrom = `${userId}&&${id}`;
+    //dataBase.child('convoIds').child(userId).child(id).set(id)
     if (this.state.text.length > 0) {
       let msgId = dataBase
         .child('messages')
@@ -102,7 +103,7 @@ class Chat extends Component {
         from: userId,
         to: id
       };
-      dataBase.child('convoIds').child(userId).child(id).set(id)
+     
       updates[`messages/${convoIdFrom}/${msgId}`] = message;
       dataBase.update(updates);
       this.setState({ text: '' });
