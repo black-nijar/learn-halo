@@ -57,7 +57,7 @@ const ChatList = ({ auth: { userId }, partyUsers, users, navigation }) => {
       {chatList.length > 0 ? (
         <FlatList
           data={removeDuplicateUser(chatList)}
-          renderItem={({ item }) => <ChatItem item={item}/>}
+          renderItem={({ item }) => <ChatItem item={item} navigation={navigation}/>}
           keyExtractor={(item) => item.id}
         />
       ) : (

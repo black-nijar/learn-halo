@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { Avatar, Paragraph } from "react-native-paper";
 
-const ChatItem = ({ item }) => {
+const ChatItem = ({ item, navigation }) => {
   console.log("ITEM :", item);
   return (
     <View>
