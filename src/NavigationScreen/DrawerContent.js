@@ -70,6 +70,8 @@ export default connect(mapStateToProps)(DrawerContent);
 const styles = StyleSheet.create({
   drawerContent: {
     flex: 1,
+    height: '100%',
+    width: '100%'
   },
   userInfoSection: {
     paddingLeft: 20

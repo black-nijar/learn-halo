@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { View } from 'react-native';
-import * as Google from 'expo-google-app-auth';
-import { connect } from 'react-redux';
+import React, { useState } from "react";
+import { View } from "react-native";
+import * as Google from "expo-google-app-auth";
+import { connect } from "react-redux";
 
-import dataBase from '../config/firebaseConfig';
+import dataBase from "../config/firebaseConfig";
 
-import SignIn from './SignIn';
+import SignIn from "./SignIn";
 
 import { userProfile } from '../actions/action';
 import { googleConfig } from '../AppConfig';
@@ -15,7 +15,7 @@ const Auth = ({ userProfile }) => {
   const ANDROID_ID = googleConfig.Android;
 
   //Child path for DB
-  const userData = dataBase.child('users');
+  const userData = dataBase.child("users");
 
   //Google signin
   const signInWithGoogleAsync = async () => {
@@ -26,7 +26,7 @@ const Auth = ({ userProfile }) => {
         scopes: ['profile', 'email'],
       });
 
-      if (result.type === 'success') {
+      if (result.type === "success") {
         const {
           user: { name, email, photoUrl, familyName, id },
         } = result;

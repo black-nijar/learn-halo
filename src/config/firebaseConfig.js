@@ -12,6 +12,7 @@ const firebaseConfig = {
   measurementId: configDB.measurementId,
 };
 
+
 const Firebase = firebase.initializeApp(firebaseConfig);
 const dataBase = Firebase.database().ref('data');
 export default dataBase;
