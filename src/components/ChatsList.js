@@ -9,7 +9,7 @@ import ChatItem from './ChatItem';
 import { Avatar, Paragraph } from 'react-native-paper';
 
 
-const ChatList = ({ auth: { userId }, partyUsers, users }) => {
+const ChatList = ({ auth: { userId }, partyUsers, users, navigation }) => {
   const [chatList, setChatList] = useState([]);
 
   // Fetching Party Users

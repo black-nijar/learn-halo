@@ -8,11 +8,11 @@ import dataBase from '../config/firebaseConfig';
 import SignIn from './SignIn';
 
 import { userProfile } from '../actions/action';
+import { googleConfig } from '../AppConfig';
 
 const Auth = ({ userProfile }) => {
   // OAuth ID
-  const ANDROID_ID =
-   
+  const ANDROID_ID = googleConfig.Android;
 
   //Child path for DB
   const userData = dataBase.child('users');
@@ -23,12 +23,12 @@ const Auth = ({ userProfile }) => {
       const result = await Google.logInAsync({
         androidClientId: ANDROID_ID,
         // iosClientId: IOS_ID,
-        scopes: ['profile', 'email']
+        scopes: ['profile', 'email'],
       });
 
       if (result.type === 'success') {
         const {
-          user: { name, email, photoUrl, familyName, id }
+          user: { name, email, photoUrl, familyName, id },
         } = result;
 
         // Upload data to database
@@ -49,7 +49,7 @@ const Auth = ({ userProfile }) => {
     try {
       await Google.logOutAsync({
         accessToken,
-        androidClientId: ANDROID_ID
+        androidClientId: ANDROID_ID,
       });
     } catch (error) {
       throw new Error(error);

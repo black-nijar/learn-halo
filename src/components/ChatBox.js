@@ -9,7 +9,7 @@ import {
   FlatList,
   Dimensions,
   TouchableWithoutFeedback,
-  Keyboard
+  Keyboard,
 } from 'react-native';
 
 import Icon from '@expo/vector-icons/Ionicons';
@@ -22,13 +22,13 @@ const { height, width } = Dimensions.get('window');
 class Chat extends Component {
   state = {
     text: '',
-    allMessages: []
+    allMessages: [],
   };
   // Fetching messages
   componentDidMount() {
     const {
       route: { params },
-      auth: { userId }
+      auth: { userId },
     } = this.props;
     const { id } = params;
     const convoIdFrom = `${userId}&&${id}`;
@@ -44,12 +44,12 @@ class Chat extends Component {
       await dataBase
         .child('messages')
         .child(convoIdFrom)
-        .on('child_added', snap => {
+        .on('child_added', (snap) => {
           const snapValue = snap.val();
           msgs.push({
             from: snapValue.from,
             createdAt: snapValue.createdAt,
-            message: snapValue.message
+            message: snapValue.message,
           });
           this.setState({ allMessages: msgs });
         });
@@ -64,12 +64,12 @@ class Chat extends Component {
       await dataBase
         .child('messages')
         .child(convoIdTo)
-        .on('child_added', snap => {
+        .on('child_added', (snap) => {
           const snapValue = snap.val();
           msgs.push({
             from: snapValue.from,
             createdAt: snapValue.createdAt,
-            message: snapValue.message
+            message: snapValue.message,
           });
           this.setState({ allMessages: msgs });
         });
@@ -78,7 +78,7 @@ class Chat extends Component {
     }
   };
 
-  onChange = text => {
+  onChange = (text) => {
     this.setState({ text });
   };
 
@@ -86,24 +86,21 @@ class Chat extends Component {
   onSend = () => {
     const {
       route: { params },
-      auth: { userId }
+      auth: { userId },
     } = this.props;
     const { id } = params;
     const convoIdFrom = `${userId}&&${id}`;
     //dataBase.child('convoIds').child(userId).child(id).set(id)
     if (this.state.text.length > 0) {
-      let msgId = dataBase
-        .child('messages')
-        .child(convoIdFrom)
-        .push().key;
+      let msgId = dataBase.child('messages').child(convoIdFrom).push().key;
       let updates = {};
       let message = {
         message: this.state.text,
         createdAt: new Date().getTime(),
         from: userId,
-        to: id
+        to: id,
       };
-     
+
       updates[`messages/${convoIdFrom}/${msgId}`] = message;
       dataBase.update(updates);
       this.setState({ text: '' });
@@ -112,7 +109,7 @@ class Chat extends Component {
   render() {
     const {
       navigation,
-      auth: { userId }
+      auth: { userId },
     } = this.props;
     return (
       <KeyboardAvoidingView style={{ flex: 1 }}>
@@ -120,7 +117,7 @@ class Chat extends Component {
           <Fragment>
             {this.state.allMessages.length > 0 ? (
               <FlatList
-                ref={ref => {
+                ref={(ref) => {
                   this.scrollView = ref;
                 }}
                 onContentSizeChange={() =>
@@ -172,8 +169,8 @@ class Chat extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  auth: state.auth
+const mapStateToProps = (state) => ({
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps)(Chat);
@@ -186,33 +183,33 @@ const styles = StyleSheet.create({
     borderColor: 'grey',
     borderWidth: 1,
     borderRadius: 10,
-    paddingLeft: 7
+    paddingLeft: 7,
   },
   chatBox: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingRight: 10
+    paddingRight: 10,
   },
   sendButton: {
     color: 'white',
     paddingLeft: 5,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   chatBoxContainer: {
     flexDirection: 'row',
-    padding: 5
+    padding: 5,
   },
   sendButtonOutline: {
     backgroundColor: '#128C7E',
     borderRadius: 20,
     padding: 10,
-    marginLeft: 10
+    marginLeft: 10,
   },
   flatList: {
     flex: 1,
     padding: 10,
     height: height * 1,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
   startConvo: {
     backgroundColor: '#fff',
@@ -223,6 +220,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#2c384a',
     marginTop: 20,
-    fontSize: 20
-  }
+    fontSize: 20,
+  },
 });

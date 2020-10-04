@@ -4,12 +4,12 @@ import { StyleSheet, Text, View, Dimensions } from 'react-native';
 const Bilingual = ({ route: { params } }) => {
   const {
     item: { message, createdAt, from },
-    userId
+    userId,
   } = params;
   const { height, width } = Dimensions.get('window');
 
   //Convert Time
-  const convertTime = time => {
+  const convertTime = (time) => {
     let date = new Date(time);
     let newDate = new Date();
     let result = (date.getHours() < 10 ? '0' : '') + date.getHours() + ':';
@@ -32,7 +32,7 @@ const Bilingual = ({ route: { params } }) => {
               backgroundColor: from === userId ? 'lightblue' : 'lightgrey',
               borderRadius: 10,
               padding: 5,
-              marginBottom: 10
+              marginBottom: 10,
             }}
           >
             <Text style={styles.textMessage}>{message}</Text>
@@ -41,7 +41,7 @@ const Bilingual = ({ route: { params } }) => {
                 color: from === userId ? 'grey' : 'green',
                 fontSize: 11,
                 alignSelf: 'flex-end',
-                padding: 10
+                padding: 10,
               }}
             >
               {convertTime(createdAt)}
@@ -59,11 +59,11 @@ export default Bilingual;
 
 const styles = StyleSheet.create({
   msgContainer: {
-    flex: 1
+    flex: 1,
   },
   textMessage: {
     color: 'black',
     padding: 8,
-    fontSize: 14
-  }
+    fontSize: 14,
+  },
 });
